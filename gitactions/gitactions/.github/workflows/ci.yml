@@ -1,0 +1,39 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Replace with your required Java version
+          distribution: 'adopt-openjdk'
+
+      - name: Build with Maven
+        run: mvn clean install --no-daemon
+
+      - name: Run tests with Maven
+        run: mvn test --no-daemon
+
+      - name: Verify Hello World Endpoint
+        run: |
+          curl -s -o response.json http://localhost:8080/hello
+          jq '.message' response.json | grep '"Hello, World!"'
+        env:
+          # Make sure the application is running
+          JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+          MAVEN_OPTS: -DskipTests
