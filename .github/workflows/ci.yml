@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'  # Replace with your required Java version
-          distribution: 'adopt-openjdk'
+          distribution: 'temurin-openjdk'
 
       - name: Build with Maven
         run: mvn clean install --no-daemon
