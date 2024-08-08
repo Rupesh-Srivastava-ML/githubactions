@@ -9,4 +9,8 @@ public class helloworld {
     public String sayHello(){
         return "Hi learning Git actions";
     }
+    @GetMapping("/newHello")
+    public String sayHelloagain(){
+        return "this is new hello";
+    }
 }
